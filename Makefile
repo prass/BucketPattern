@@ -1,4 +1,4 @@
-OBJS = main.o
+OBJS = main.o bucket.o
 
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Wunused
