@@ -7,17 +7,17 @@
 static int button_pressed(struct bucket_t *button) {
 	static uint8_t pressed = 0;
 
-	//update bucket level
+	// update bucket level
 	update_bucket(button, !(PINB & (1<<PINB4)));
 
-	//pressed long time
+	// button pressed long time
 	if(bucket_empty(button) && !pressed) {
 		pressed = 1;
 		return PRESSED;
 	}
 
-	//released
-	if(button->level == button->size && pressed) {
+	// button released
+	if(bucket_full(button) && pressed) {
 		pressed = 0;
 		return RELEASED;
 	}
@@ -29,7 +29,9 @@ int main() {
 	struct bucket_t button;
 	init_bucket(&button, 200);
 
+	// define PB4 as input
 	DDRB = (0<<DDB4);
+	// enable pullup
 	PORTB = (1<<PORTB4);
 
 	while(1) {
