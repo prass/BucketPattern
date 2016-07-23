@@ -13,7 +13,7 @@ void init_bucket(struct bucket_t * bucket, int token_count) {
 
 void update_bucket(struct bucket_t * bucket, int drain) {
 	if(drain) {
-		if(bucket->level >= 0) {
+		if(bucket->level > 0) {
 			bucket->level--;
 		}
 	} else {
