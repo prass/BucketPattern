@@ -14,8 +14,9 @@ int main(void) {
 	init_bucket(&b, TEST_SIZE);
 	printf("Bucket has a level of %d:\n\n", TEST_SIZE);
 
-	for(draining_count = 0; draining_count < TEST_SIZE + 1; draining_count++) {
-		if(bucket_empty(&b, 1)) {
+    for(draining_count = 1; draining_count <= TEST_SIZE; draining_count++) {
+        update_bucket(&b, 1);
+        if(bucket_empty(&b)) {
 			printf("Bucket empty after %d times draining...\n", draining_count);
 			break;
 		}
@@ -26,8 +27,8 @@ int main(void) {
 
 	b.level = 0;
 	for(filling_count = 1; filling_count <= TEST_SIZE; filling_count++) {
-		bucket_empty(&b, 0);
-		if(b.level == b.size) {
+        update_bucket(&b, 0);
+        if(bucket_full(&b)) {
 			printf("Bucket full after %d times filling...\n", filling_count);
 			break;
 		}

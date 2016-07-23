@@ -11,8 +11,8 @@ void init_bucket(struct bucket_t * bucket, int token_count) {
 	bucket->level = token_count;
 }
 
-int bucket_empty(struct bucket_t * bucket, int drain_condition) {
-	if(drain_condition) {
+void update_bucket(struct bucket_t * bucket, int drain) {
+	if(drain) {
 		if(bucket->level >= 0) {
 			bucket->level--;
 		}
@@ -30,6 +30,18 @@ int bucket_empty(struct bucket_t * bucket, int drain_condition) {
 	/* negative means empty so reset and return true */
 	if(bucket->level < 0) {
 		bucket->level =  0;
+	}
+}
+
+int bucket_empty(struct bucket_t *bucket) {
+	if(bucket->level <= 0) {
+		return 1;
+	}
+	return 0;
+}
+
+int bucket_full(struct bucket_t *bucket) {
+	if(bucket->level >= bucket->size) {
 		return 1;
 	}
 	return 0;

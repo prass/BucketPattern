@@ -8,5 +8,7 @@ struct bucket_t {
 };
 
 void init_bucket(struct bucket_t * bucket, int token_count);
-int bucket_empty(struct bucket_t * bucket, int drain_condition);
+void update_bucket(struct bucket_t * bucket, int drain_condition);
+int bucket_empty(struct bucket_t * bucket);
+int bucket_full(struct bucket_t * bucket);
 #endif
