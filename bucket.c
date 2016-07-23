@@ -26,8 +26,6 @@ void update_bucket(struct bucket_t * bucket, int drain) {
 	if(bucket->level > bucket->size) {
 		bucket->level = bucket->size;
 	}
-
-	/* negative means empty so reset and return true */
 	if(bucket->level < 0) {
 		bucket->level =  0;
 	}
