@@ -4,11 +4,11 @@
 #define PRESSED 1
 #define RELEASED 2
 
-static int button_pressed(struct bucket_t *button) {
+static int button_pressed(struct bucket_t *button, uint8_t pin_state) {
 	static uint8_t pressed = 0;
 
 	// update bucket level
-	update_bucket(button, !(PINB & (1<<PINB4)));
+	update_bucket(button, pin_state);
 
 	// button pressed long time
 	if(bucket_empty(button) && !pressed) {
@@ -35,7 +35,7 @@ int main() {
 	PORTB = (1<<PORTB4);
 
 	while(1) {
-		state = button_pressed(&button);
+		state = button_pressed(&button, !(PINB & (1<<PINB4)));
 		if(state == PRESSED) {
 		}
 		if(state == RELEASED) {
